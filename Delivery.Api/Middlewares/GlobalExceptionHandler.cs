@@ -20,8 +20,10 @@ public class GlobalExceptionHandler : IExceptionHandler
 
         var response = new
         {
-            error = exception.Message,
-            StatusCode = httpContext.Response.StatusCode
+            timestamp = DateTime.UtcNow,
+            status = httpContext.Response.StatusCode,
+            message = exception.Message,
+            path = httpContext.Request.Path.Value
         };
         
         await httpContext.Response.WriteAsJsonAsync(response, cancellationToken);

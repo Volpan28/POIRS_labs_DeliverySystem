@@ -16,9 +16,9 @@ public class CouriersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateCourier([FromBody] CreateCourierDto dto)
+    public async Task<IActionResult> CreateCourier([FromBody] CreateCourierDto dto, CancellationToken cancellationToken)
     {
-        var result = await _courierService.CreateCourierAsync(dto);
+        var result = await _courierService.CreateCourierAsync(dto, cancellationToken);
         return Created($"/api/couriers/{result.Id}", result);
     }
 

@@ -4,8 +4,8 @@ namespace Delivery.Domain.Interfaces;
 
 public interface IOrderRepository
 {
-    IEnumerable<Courier> GetAllOrders();
-    Order GetOrderById(Guid id);
-    void AddOrder(Order order);
-    void UpdateOrder(Order order);
+    Order? GetOrderById(Guid id);
+    Task AddOrderAsync(Order order, CancellationToken cancellationToken);
+    Task UpdateOrder(Order order, CancellationToken cancellationToken);
+    Task DeleteOrderAsync(Order order, CancellationToken cancellationToken);
 }

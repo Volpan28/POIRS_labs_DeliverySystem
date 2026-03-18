@@ -15,17 +15,17 @@ public class CourierService : ICourierService
         _repo = repository;
     }
 
-    public async Task<CourierResponseDto> CreateCourierAsync(CreateCourierDto dto)
+    public async Task<CourierResponseDto> CreateCourierAsync(CreateCourierDto dto, CancellationToken cancellationToken)
     {
         var courier = new Courier(dto.Name, dto.TransportType);
         
-        await _repo.AddCourierAsync(courier);
+        await _repo.AddCourierAsync(courier, cancellationToken);
         return new CourierResponseDto(courier.Id, courier.IsActive);
     }
 
-    public IEnumerable<CourierResponseDto> GetAllCouriers()
+    public IEnumerable<CourierResponseDto> GetAllCouriers(int PageNumber = 1, int PageSize = 10)
     {
-        var couriers = _repo.GetAllCouriers();
+        var couriers = _repo.GetAllCouriers(PageNumber, PageSize);
         return couriers.Select(c => new CourierResponseDto(c.Id, c.IsActive));
     }
 
@@ -38,6 +38,4 @@ public class CourierService : ICourierService
         }
         return new CourierResponseDto(courier.Id, courier.IsActive);
     }
-    
-    
 }
